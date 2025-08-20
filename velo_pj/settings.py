@@ -127,3 +127,7 @@ STATIC_ROOT = BASE_DIR / 'staticfiles'
 # https://docs.djangoproject.com/en/5.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+# ExerciseDB API Key
+EXERCISEDB_API_KEY = os.getenv('EXERCISEDB_API_KEY')
+EXERCISEDB_API_HOST = os.getenv('EXERCISEDB_API_HOST')
