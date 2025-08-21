@@ -9,9 +9,15 @@
       <header class="bg-gray-800 text-white p-4">
         <nav class="container mx-auto">
           <ul class="flex space-x-4">
-            <li><a href="{% url 'home' %}" class="hover:underline">Home</a></li>
+            {% if not user.is_staff %}
+            <li><a href="{% url 'home' %}" class="hover:underline">Dashboard</a></li>
+            {% else %}
+            <li><a href="{% url 'admin_dashboard' %}" class="hover:underline">ADMIN</a></li>
+            {% endif %}
             {% if user.is_authenticated %}
+            {% if not user.is_staff %}
             <li><a href="{% url 'register' %}" class="hover:underline">Register</a></li>
+            {% endif %}
               <form method="POST" action="{% url 'logout' %}" class="inline">
                 {% csrf_token %}
                 <button type="submit" class="text-white hover:text-gray-400 px-4">Logout</button>
@@ -25,10 +31,55 @@
         </nav>
       </header>
       <main class="container mx-auto p-4">
+        <div>
+          {% if messages %}
+        <div id="message-container" class="fixed top-4 right-4 z-50 w-full max-w-sm space-y-3">
+        {% for message in messages %}
+            <div class="js-fade-message
+                        p-4 rounded-md shadow-lg
+                        opacity-100 h-auto py-4 my-4 border
+                        transition-all duration-800 ease-out overflow-hidden
+                        {% if message.tags == 'error' or message.tags == 'danger' %}
+                            inline-flex bg-red-100 text-red-800 border-red-300
+                        {% elif message.tags == 'success' %}
+                            inline-flex bg-green-100 text-green-800 border-green-300
+                        {% elif message.tags == 'info' %}
+                            inline-flex bg-blue-100 text-blue-800 border-blue-300
+                        {% elif message.tags == 'warning' %}
+                            inline-flex bg-yellow-100 text-yellow-800 border-yellow-300
+                        {% endif %}
+                        " role="alert">
+                {{ message }}
+            </div>
+        {% endfor %}
+    </div>
+{% endif %}
+        </div>
         <div class="bg-white rounded-lg shadow-md p-6">
           {% block content %}
           {% endblock %}
         </div>
       </main>
+      <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const messageContainer = document.getElementById('message-container');
+            if (messageContainer) {
+                // Get all individual message divs within the container
+                const messages = messageContainer.querySelectorAll('[role="alert"]');
+
+                messages.forEach(message => {
+                    // Set a timeout to start the fade-out
+                    setTimeout(() => {
+                        message.style.opacity = '0'; // Start CSS transition for fade-out
+                        // After the transition, remove the element from the DOM
+                        message.addEventListener('transitionend', function() {
+                            message.remove();
+                        }, { once: true }); // Ensure listener runs only once
+                    }, 5000); // 5000 milliseconds = 5 seconds
+                });
+            }
+        });
+    </script>
+
     </body>
 </html>

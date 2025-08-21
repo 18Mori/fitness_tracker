@@ -17,7 +17,28 @@
         register for a new account
       </a>
     </p>
-  </div>
+    {% if messages %}
+    <div id="message-container" class="fixed top-4 right-4 z-50 w-full max-w-sm space-y-3">
+        {% for message in messages %}
+            <div class="js-fade-message
+                        p-4 rounded-md shadow-lg
+                        opacity-100 h-auto py-4 my-4 border
+                        transition-all duration-800 ease-out overflow-hidden
+                        alert alert-{% if message.tags == 'error' or message.tags == 'danger' %}
+                            inline-flex bg-red-100 text-red-800 border-red-300
+                        {% elif message.tags == 'success' %}
+                            inline-flex bg-green-100 text-green-800 border-green-300
+                        {% elif message.tags == 'info' %}
+                            inline-flex bg-blue-100 text-blue-800 border-blue-300
+                        {% elif message.tags == 'warning' %}
+                            inline-flex bg-yellow-100 text-yellow-800 border-yellow-300
+                        {% endif %}
+                        " role="alert">
+                {{ message }}
+            </div>
+        {% endfor %}
+    </div>
+{% endif %}
 
   <div class="mt-8 sm:mx-auto sm:w-full sm:max-w-md">
     <div class="bg-white py-8 px-4 shadow sm:rounded-lg sm:px-10">
@@ -43,18 +64,7 @@
           <div class="mt-1">
             <input id="id_username" name="username" type="text" required
               class="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm">
-              {% if form.username.errors %}
-                        <ul class="mt-2 text-red-600 text-sm">
-                            {% for error in form.username.errors %}
-                            <li class="flex items-center">
-                                <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 mr-1" viewBox="0 0 20 20" fill="currentColor">
-                                    <path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7 4a1 1 0 11-2 0 1 1 0 012 0zm-1-9a1 1 0 00-1 1v4a1 1 0 102 0V6a1 1 0 00-1-1z" clip-rule="evenodd" />
-                                </svg>
-                                {{ error }}
-                            </li>
-                            {% endfor %}
-                        </ul>
-                        {% endif %}
+              
           </div>
         </div>
 
@@ -80,20 +90,30 @@
         <div>
           <button type="submit"
             class="w-full flex justify-center py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500">
-            Sign in
+            Login
           </button>
         </div>
       </form>
     </div>
   </div>
 </div>
+<script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const messageContainer = document.getElementById('message-container');
+            if (messageContainer) {
+                const messages = messageContainer.querySelectorAll('[role="alert"]');
+
+                messages.forEach(message => {
+                    // Set a timeout to start the fade-out
+                    setTimeout(() => {
+                        message.style.opacity = '0'; // Start fade-out
+                        message.addEventListener('transitionend', function() {
+                            message.remove();
+                        }, { once: true }); // Ensure listener runs only once
+                    }, 5000); // 5 seconds
+                });
+            }
+        });
+    </script>
 </body>
 </html>
-                        {% for error in form.password1.errors %}
-                        <li class="flex items-center">
-                            <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 mr-1" viewBox="0 0 20 20" fill="currentColor">
-                                <path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7 4a1 1 0 11-2 0 1 1 0 012 0zm-1-9a1 1 0 00-1 1v4a1 1 0 102 0V6a1 1 0 00-1-1z" clip-rule="evenodd" />
-                            </svg>
-                            {{ error }}
-                        </li>
-                        {% endfor %}
