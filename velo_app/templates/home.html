@@ -1,40 +1,71 @@
 {% extends 'base.html' %}
+{% load static %}
 
-{% block title %}Dashboard{% endblock %}
+{% block title %}Velo{% endblock %}
+
 {% block content %}
 <div class="container mx-auto p-4">
-  {% if user.is_authenticated%}
+    {% if user.is_authenticated %}
         <h1 class="text-3xl font-bold text-gray-800 mb-6">Welcome back, {{ user.username }}!</h1>
         <p class="text-gray-600 mb-4">Continue tracking your workouts and progress.</p>
         {% else %}
-        <h1 class="text-4xl font-bold text-gray-800 mb-4">Welcome to the Fitness Tracker</h1>
+        <h1 class="text-4xl font-bold text-gray-800 mb-4 ">Welcome to the Fitness Tracker</h1>
     <p class="text-gray-600 mb-4">Track your workouts, monitor your progress, and achieve your fitness goals.</p>
         {% endif %}
         {% if user.is_authenticated %}
-        <div class="bg-white rounded-lg shadow p-6 mb-6">
-            <h2 class="text-xl font-semibold text-gray-700 mb-4">Your Progress at a Glance</h2>
-            <div class="grid grid-cols-1 md:grid-cols-4 gap-4">
-                <div class="p-4 bg-blue-100 rounded-lg text-center">
-                    <p class="text-2xl font-bold">0</p>
-                    <p class="text-gray-600">Workouts</p>
-                </div>
-                <div class="p-4 bg-blue-100 rounded-lg text-center">
-                    <p class="text-2xl font-bold">0</p>
-                    <p class="text-gray-600">Kcal</p>
-                </div>
-                <div class="p-4 bg-blue-100 rounded-lg text-center">
-                    <p class="text-2xl font-bold">0</p>
-                    <p class="text-gray-600">Challenges</p>
-                </div>
-                <div class="p-4 bg-blue-100 rounded-lg text-center">
-                    <p class="text-2xl font-bold">0</p>
-                    <p class="text-gray-600">Minutes</p>
-                </div>
-                
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
+    <div class="bg-white rounded-xl shadow-lg p-6 flex flex-col items-center text-center border-zinc-800 overflow-hidden relative group hover:shadow-2xl transition-all duration-300 ease-in-out">
+        <h2 class="text-xl font-semibold text-gray-700 mb-2">Calories Burned</h2>
+        <p class="text-5xl font-extrabold text-red-500">{{ total_calories_burned|default:"0" }} <span class="text-2xl font-normal text-gray-500">Kcal</span></p>
+    </div>
+    <div class="bg-white rounded-xl shadow-lg p-6 flex flex-col items-center text-center border-zinc-800 overflow-hidden relative group hover:shadow-2xl transition-all duration-300 ease-in-out">
+        <h2 class="text-xl font-semibold text-gray-700 mb-2">Total Time</h2>
+        <p class="text-5xl font-extrabold text-green-500">{{ total_time|default:"0" }} <span class="text-2xl font-normal text-gray-500">mins</span></p>
+    </div>
+    <div class="bg-white rounded-xl shadow-lg p-6 flex flex-col items-center text-center border-zinc-800 overflow-hidden relative group hover:shadow-2xl transition-all duration-300 ease-in-out">
+        <h2 class="text-xl font-semibold text-gray-700 mb-2">Workouts Done</h2>
+        <p class="text-5xl font-extrabold text-blue-500">{{ total_workouts|default:"0" }}</p>
+    </div>
+    <div class="bg-white rounded-xl shadow-lg p-6 flex flex-col items-center text-center border-zinc-800 overflow-hidden relative group hover:shadow-2xl transition-all duration-300 ease-in-out">
+        <h2 class="text-xl font-semibold text-gray-700 mb-2">Day Streak</h2>
+        <p class="text-5xl font-extrabold text-yellow-500">{{ day_streak|default:"0" }}</p>
+    </div>
+</div>
+
+<section class="bg-white rounded-xl shadow-lg p-8 mb-8">
+    <h2 class="text-2xl font-bold text-gray-800 mb-4">Your Progress</h2>
+    <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+        <div>
+            <h3 class="text-xl font-semibold text-gray-700 mb-2">Weight Progress</h3>
+            <canvas id="weightChart"></canvas>
+        </div>
+        <div>
+            <h3 class="text-xl font-semibold text-gray-700 mb-2">Body Metrics</h3>
+            <div class="bg-gray-100 p-4 rounded-lg mb-4">
+                <p class="text-lg font-medium text-gray-700">Current BMI: <span class="font-bold text-blue-600">{{ user.bmi|default:"N/A" }}</span></p>
+            </div>
+            <div class="bg-gray-100 p-4 rounded-lg">
+                <h4 class="text-lg font-semibold text-gray-700">Your Goals</h4>
+                <p class="text-gray-600 mt-1">{{ user.goals|default:"No goals set yet." }}</p>
             </div>
         </div>
-        {% endif %}
-
     </div>
+</section>
+
+<!-- Leaderboard Section -->
+<section class="bg-white rounded-xl shadow-lg p-8">
+    <h2 class="text-2xl font-bold text-gray-800 mb-4">Challenge Leaderboard</h2>
+    <div id="leaderboard" class="space-y-4">
+        {% for participant in leaderboard %}
+        <div class="flex items-center justify-between p-4 bg-gray-100 rounded-lg">
+            <div class="flex items-center space-x-4">
+                <span class="text-lg font-medium text-gray-700">{{ forloop.counter }}. {{ participant.user.username }}</span>
+                <span class="text-sm text-gray-500">Score: {{ participant.score }}</span>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+</section>
+{% endif %}
 
 {% endblock %}

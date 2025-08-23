@@ -1,0 +1,46 @@
+{% extends "base.html" %}
+{% block title %}Velo{% endblock %}
+{% block content %}
+<div class="max-w-4xl mx-auto py-8 px-4 sm:px-6 lg:px-8">
+  <div class="bg-white shadow rounded-lg overflow-hidden">
+    <div class="px-6 py-8 sm:px-10 sm:py-10">
+        <div class="flex-shrink-0">
+          <div class="relative">
+            {% if profile.profile_picture %}
+              <img class="h-32 w-32 rounded-full object-cover border-4 border-white shadow" 
+                   src="{{ profile.profile_picture.url }}" 
+                   alt="{{ user.username }} profile picture">
+            {% else %}
+              <div class="bg-gray-200 border-2 border-dashed rounded-full w-32 h-32 flex items-center justify-center">
+                <span class="text-gray-500 text-5xl">{{ user.username|first|upper }}</span>
+              </div>
+            {% endif %}
+            <div class="absolute inset-0 rounded-full shadow-inner" aria-hidden="true"></div>
+          </div>
+        </div>
+        
+        <div class="flex-1 min-w-0">
+          <h1 class="text-2xl font-bold text-gray-900 truncate">
+            {{ user.username }}
+          </h1>
+          <p class="text-gray-600 mt-1">{{ user.email }}</p>
+          
+          <div class="mt-4">
+            <h2 class="text-sm font-medium text-gray-500">Member since</h2>
+            <p class="text-sm text-gray-900">{{ user.date_joined|date:"F Y" }}</p>
+          </div>
+          
+          <div class="mt-4">
+        </div>
+        {% comment %} <div class="mt-6 md:mt-0">
+          <a href="{% url 'edit_profile' %}" class="inline-flex items-center px-4 py-2 bg-blue-600 text-white text-sm font-medium rounded-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500">
+            Edit Profile
+          </a>
+    </div> {% endcomment %}
+    </div>
+  </div>
+</div>
+
+    </div>
+
+{% endblock %}

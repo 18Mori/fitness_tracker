@@ -6,9 +6,11 @@ from django.views.decorators.http import require_http_methods
 from django.contrib import messages
 from django.views.decorators.http import require_POST
 from django.contrib.auth import logout
-from django.contrib.auth.decorators import login_required
 from .form import UserLoginForm
 from django.contrib.auth.decorators import login_required, user_passes_test
+from rest_framework import generics
+from .models import *
+from .serializers import *
 
 def home(request):
   return render(request, 'home.html')
@@ -18,6 +20,9 @@ def is_admin(user):
 @user_passes_test(is_admin, login_url='login')
 def admin_dashboard(request):
     return render(request, 'admin/dashboard.html')
+
+def profile(request):
+    return render(request, 'auth/profile.html')
 
 def register(request):
     if request.method == 'POST':
@@ -71,3 +76,11 @@ def logout_user(request):
   logout(request)
   messages.success(request, 'Logout was successful!')
   return redirect('home')
+
+class WorkoutList(generics.ListCreateAPIView):
+    queryset = WorkoutSession.objects.all()
+    serializer_class = WorkoutSessionSerializer
+
+class WorkoutDetail(generics.RetrieveUpdateDestroyAPIView):
+    queryset = WorkoutSession.objects.all()
+    serializer_class = WorkoutSessionSerializer
