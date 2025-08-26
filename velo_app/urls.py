@@ -5,8 +5,11 @@ from django.contrib import admin
 urlpatterns = [
     path('', views.home, name='home'),
     path('about/', views.about, name='about'),
-    path('Admin/', views.admin_dashboard, name='admin_dashboard'),
-    path('dashboard', views.dashboard, name='dashboard'),
+    path('admin/', views.admin_dashboard, name='admin_dashboard'),
+    path('activities/', views.activities, name='activities'),
+    path('challenges/', views.challenges, name='challenges'),
+    path('analytics/', views.analytics, name='analytics'),
+    path('dashboard/', views.dashboard, name='dashboard'),
     path('register/', views.register, name='register'),
     path('login/', views.login, name='login'),
     path('logout/', views.logout_user, name='logout'),

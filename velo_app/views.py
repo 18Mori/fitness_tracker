@@ -18,6 +18,15 @@ def home(request):
 def about(request):
   return render(request, 'about.html')
 
+def activities(request):
+  return render(request, 'activities.html')
+
+def challenges(request):
+  return render(request, 'challenges.html')
+
+def analytics(request):
+  return render(request, 'analytics.html')
+
 def dashboard(request):
   return render(request, 'dashboard.html')
 
@@ -37,7 +46,7 @@ def register(request):
           user = form.save()
           auth_login(request, user)
           messages.success(request, 'Signed up successfully!')
-          return redirect('home')
+          return redirect('dashboard')
     else:
         form = UserRegistrationForm()
     return render(request, 'auth/register.html', {'form': form})
@@ -45,8 +54,8 @@ def register(request):
 @require_http_methods(["GET", "POST"])
 def login(request):
     if request.user.is_authenticated:
-        return redirect('home')
-      
+        return redirect('dashboard')
+    
     if request.method == 'POST':
         form = UserLoginForm(request.POST)
         if form.is_valid():
@@ -60,7 +69,7 @@ def login(request):
             messages.success(request, 'Login successful!')
             if remember_me: 
                 request.session.set_expiry(1209600)  # 2 weeks
-                return redirect('home')
+                return redirect('dashboard')
                 
             elif user.is_staff:
                 auth_login(request, user)

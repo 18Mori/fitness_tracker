@@ -11,11 +11,7 @@
 <body class="bg-gray-900 text-white">
 
   <div class="relative inline-block px-4 py-2 mb-6 rounded-full bg-blue-600 text-sm font-semibold hover:bg-blue-700 transition ml-4 mt-4">
-    {% if not user.is_authenticated %}
-  <a href="{% url 'home' %}">Back to Home</a>
-  {% else %}
-  <a href="{% url 'dashboard' %}">Back to Dashboard</a>
-  {% endif %}
+    <a href="{% url 'dashboard' %}"><svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#e3e3e3"><path d="M400-240 160-480l240-240 56 58-142 142h486v80H314l142 142-56 58Z"/></svg></a>
 </div>
   <!-- About Section -->
   <section class="py-20 px-6 md:px-12 lg:px-20 text-center">
@@ -74,7 +70,7 @@
              class="rounded-lg shadow-lg w-full h-auto object-cover">
         <!-- Floating Icon -->
         <div class="absolute -bottom-9 -right-6 bg-blue-500 text-white p-8 rounded-xl shadow-lg hover:rotate-12 transition-transform">
-          🚀
+          <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#e3e3e3"><path d="m226-559 78 33q14-28 29-54t33-52l-56-11-84 84Zm142 83 114 113q42-16 90-49t90-75q70-70 109.5-155.5T806-800q-72-5-158 34.5T492-656q-42 42-75 90t-49 90Zm178-65q-23-23-23-56.5t23-56.5q23-23 57-23t57 23q23 23 23 56.5T660-541q-23 23-57 23t-57-23Zm19 321 84-84-11-56q-26 18-52 32.5T532-299l33 79Zm313-653q19 121-23.5 235.5T708-419l20 99q4 20-2 39t-20 33L538-80l-84-197-171-171-197-84 167-168q14-14 33.5-20t39.5-2l99 20q104-104 218-147t235-24ZM157-321q35-35 85.5-35.5T328-322q35 35 34.5 85.5T327-151q-25 25-83.5 43T82-76q14-103 32-161.5t43-83.5Zm57 56q-10 10-20 36.5T180-175q27-4 53.5-13.5T270-208q12-12 13-29t-11-29q-12-12-29-11.5T214-265Z"/></svg>
         </div>
       </div>
     </div>
@@ -91,25 +87,33 @@
     <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 max-w-6xl mx-auto">
       
       <div class="bg-gray-900 p-8 rounded-lg shadow hover:shadow-lg transition">
-        <div class="text-2xl mb-4">❤️</div>
+        <div class="text-2xl mb-4">
+          <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="200px" fill="#e3e3e3"><path d="M440-501Zm0 381L313-234q-72-65-123.5-116t-85-96q-33.5-45-49-87T40-621q0-94 63-156.5T260-840q52 0 99 22t81 62q34-40 81-62t99-22q81 0 136 45.5T831-680h-85q-18-40-53-60t-73-20q-51 0-88 27.5T463-660h-46q-31-45-70.5-72.5T260-760q-57 0-98.5 39.5T120-621q0 33 14 67t50 78.5q36 44.5 98 104T440-228q26-23 61-53t56-50l9 9 19.5 19.5L605-283l9 9q-22 20-56 49.5T498-172l-58 52Zm280-160v-120H600v-80h120v-120h80v120h120v80H800v120h-80Z"/></svg>
+        </div>
         <h3 class="font-semibold mb-2">Passion for Health</h3>
         <p class="text-sm text-gray-400">We believe everyone deserves to live the healthiest, most vibrant life.</p>
       </div>
 
       <div class="bg-gray-900 p-8 rounded-lg shadow hover:shadow-lg transition">
-        <div class="text-2xl mb-4">🤝</div>
+        <div class="text-2xl mb-4">
+          <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="200px" fill="#e3e3e3"><path d="M475-160q4 0 8-2t6-4l328-328q12-12 17.5-27t5.5-30q0-16-5.5-30.5T817-607L647-777q-11-12-25.5-17.5T591-800q-15 0-30 5.5T534-777l-11 11 74 75q15 14 22 32t7 38q0 42-28.5 70.5T527-522q-20 0-38.5-7T456-550l-75-74-175 175q-3 3-4.5 6.5T200-435q0 8 6 14.5t14 6.5q4 0 8-2t6-4l136-136 56 56-135 136q-3 3-4.5 6.5T285-350q0 8 6 14t14 6q4 0 8-2t6-4l136-135 56 56-135 136q-3 2-4.5 6t-1.5 8q0 8 6 14t14 6q4 0 7.5-1.5t6.5-4.5l136-135 56 56-136 136q-3 3-4.5 6.5T454-180q0 8 6.5 14t14.5 6Zm-1 80q-37 0-65.5-24.5T375-166q-34-5-57-28t-28-57q-34-5-56.5-28.5T206-336q-38-5-62-33t-24-66q0-20 7.5-38.5T149-506l232-231 131 131q2 3 6 4.5t8 1.5q9 0 15-5.5t6-14.5q0-4-1.5-8t-4.5-6L398-777q-11-12-25.5-17.5T342-800q-15 0-30 5.5T285-777L144-635q-9 9-15 21t-8 24q-2 12 0 24.5t8 23.5l-58 58q-17-23-25-50.5T40-590q2-28 14-54.5T87-692l141-141q24-23 53.5-35t60.5-12q31 0 60.5 12t52.5 35l11 11 11-11q24-23 53.5-35t60.5-12q31 0 60.5 12t52.5 35l169 169q23 23 35 53t12 61q0 31-12 60.5T873-437L545-110q-14 14-32.5 22T474-80Zm-99-560Z"/></svg>
+        </div>
         <h3 class="font-semibold mb-2">Community First</h3>
         <p class="text-sm text-gray-400">Fitness is better together. We build tools that bring people closer.</p>
       </div>
 
       <div class="bg-gray-900 p-8 rounded-lg shadow hover:shadow-lg transition">
-        <div class="text-2xl mb-4">💡</div>
+        <div class="text-2xl mb-4">
+          <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="200px" fill="#e3e3e3"><path d="M400-240q-33 0-56.5-23.5T320-320v-50q-57-39-88.5-100T200-600q0-117 81.5-198.5T480-880q117 0 198.5 81.5T760-600q0 69-31.5 129.5T640-370v50q0 33-23.5 56.5T560-240H400Zm0-80h160v-92l34-24q41-28 63.5-71.5T680-600q0-83-58.5-141.5T480-800q-83 0-141.5 58.5T280-600q0 49 22.5 92.5T366-436l34 24v92Zm0 240q-17 0-28.5-11.5T360-120v-40h240v40q0 17-11.5 28.5T560-80H400Zm80-520Z"/></svg>
+        </div>
         <h3 class="font-semibold mb-2">Innovation</h3>
         <p class="text-sm text-gray-400">We continuously evolve our platform with the latest technology and insights.</p>
       </div>
 
       <div class="bg-gray-900 p-8 rounded-lg shadow hover:shadow-lg transition">
-        <div class="text-2xl mb-4">🔒</div>
+        <div class="text-2xl mb-4">
+          <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="200px" fill="#e3e3e3"><path d="M240-80q-33 0-56.5-23.5T160-160v-400q0-33 23.5-56.5T240-640h40v-80q0-83 58.5-141.5T480-920q83 0 141.5 58.5T680-720v80h40q33 0 56.5 23.5T800-560v400q0 33-23.5 56.5T720-80H240Zm0-80h480v-400H240v400Zm240-120q33 0 56.5-23.5T560-360q0-33-23.5-56.5T480-440q-33 0-56.5 23.5T400-360q0 33 23.5 56.5T480-280ZM360-640h240v-80q0-50-35-85t-85-35q-50 0-85 35t-35 85v80ZM240-160v-400 400Z"/></svg>
+        </div>
         <h3 class="font-semibold mb-2">Trust & Privacy</h3>
         <p class="text-sm text-gray-400">Your data is sacred. We protect your privacy with enterprise-grade security.</p>
       </div>

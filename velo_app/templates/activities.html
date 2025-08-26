@@ -1,0 +1,62 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+<title>{% block title %}Activities{% endblock title %}</title>
+<body class="bg-[#121212] text-white p-6 md:p-10">
+    <div class="max-w-7xl mx-auto">
+        <div class="flex justify-between items-center mb-6">
+            <div>
+                <h1 class="text-3xl font-bold">Activities</h1>
+                <p class="text-gray-400 mt-1">Track and manage your fitness activities</p>
+            </div>
+            <button class="flex items-center space-x-2 bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded-full transition-colors duration-200">
+                <svg class="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6"></path>
+                </svg>
+                <span>Log New Activity</span>
+            </button>
+        </div>
+
+        <div class="flex flex-col md:flex-row md:items-center space-y-4 md:space-y-0 md:space-x-4 bg-[#1e1e1e] p-4 rounded-lg mb-8">
+            <div class="flex items-center space-x-2 text-gray-400">
+                <svg class="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 4a1 1 0 011-1h16a1 1 0 011 1v2a1 1 0 01-1 1H4a1 1 0 01-1-1V4z"></path>
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 8h16"></path>
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 12h8"></path>
+                </svg>
+                <span class="font-medium">Filters:</span>
+            </div>
+            <div class="flex items-center space-x-2">
+                <span class="text-gray-400 text-sm">Type:</span>
+                <select class="bg-gray-800 border-2 border-transparent text-white rounded-md py-1.5 px-3 focus:outline-none focus:ring-2 focus:ring-blue-500">
+                    <option>All</option>
+                    <option>Workout</option>
+                    <option>Steps</option>
+                    <option>Calories</option>
+                </select>
+            </div>
+            <div class="flex items-center space-x-2">
+                <span class="text-gray-400 text-sm">Period:</span>
+                <select class="bg-gray-800 border-2 border-transparent text-white rounded-md py-1.5 px-3 focus:outline-none focus:ring-2 focus:ring-blue-500">
+                    <option>Today</option>
+                    <option>This Week</option>
+                    <option>This Month</option>
+                </select>
+            </div>
+        </div>
+
+        <div class="bg-[#1e1e1e] p-6 rounded-lg min-h-[50vh] flex flex-col">
+            <h2 class="text-xl font-bold mb-6">Activities (0)</h2>
+            <div class="flex-1 flex flex-col items-center justify-center text-center">
+                <div class="mb-4">
+                    <svg class="h-16 w-16 text-gray-500" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path>
+                    </svg>
+                </div>
+                <p class="text-lg font-semibold text-gray-400 mb-2">No activities found</p>
+                <p class="text-sm text-gray-500">Try adjusting your filters or log a new activity</p>
+            </div>
+        </div>
+    </div>
+</body>
+{% endblock %}
