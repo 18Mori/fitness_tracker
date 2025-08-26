@@ -1,0 +1,23 @@
+{% block footer %}
+<footer class="py-10 px-6 md:px-12 lg:px-20 bg-gray-900 border-t border-gray-700">
+    <div class="max-w-6xl mx-auto flex flex-col md:flex-row justify-between items-center gap-6 border-b-4 border-zinc-500 ">
+      <!-- Left -->
+      <div>
+        <h3 class="font-bold text-lg">Velo</h3>
+        <p class="text-sm text-gray-400">Fitness Tracker</p>
+      </div>
+
+      <!-- Links -->
+      <div class="flex gap-6 text-sm">
+        <a href="{% url 'home' %}" class="text-gray-400 hover:text-white transition">Home</a>
+        <a href="{% url 'dashboard' %}" class="text-gray-400 hover:text-white transition">Dashboard</a>
+        <a href="{% url 'about' %}" class="text-gray-400 hover:text-white transition">About</a>
+      </div>
+    </div>
+
+    <!-- Bottom -->
+    <div class="text-center mt-6 text-gray-500 text-sm">
+      © 2025 Velo Fitness. Built with passion for your health.
+    </div>
+  </footer>
+{% endblock %}

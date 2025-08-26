@@ -11,6 +11,8 @@ class UserProfile(models.Model):
 
     def __str__(self):
         return self.user.username
+    
+
 
 class WorkoutSession(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)

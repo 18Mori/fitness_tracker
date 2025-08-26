@@ -1,71 +1,151 @@
-{% extends 'base.html' %}
 {% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="icon" type="image/x-icon" href="{% static 'flash.png' %}">
+  <title>Velo</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-900 text-white">
+    <section 
+    class="absolute inset-0 opacity-55 relative min-h-screen flex flex-col justify-center items-center text-center bg-cover bg-center"
+    style="background-image: url('https://wallpaperaccess.com/full/804850.jpg');">
+    
+    <!-- Dark Overlay -->
+    <div class="absolute inset-0 bg-gradient-to-t from-zinc-900 via-zinc-900/80 to-transparent"></div>
 
-{% block title %}Velo{% endblock %}
-
-{% block content %}
-<div class="container mx-auto p-4">
-    {% if user.is_authenticated %}
-        <h1 class="text-3xl font-bold text-gray-800 mb-6">Welcome back, {{ user.username }}!</h1>
-        <p class="text-gray-600 mb-4">Continue tracking your workouts and progress.</p>
+    <!-- Content -->
+    <div class="relative z-10 max-w-3xl px-6">
+      
+      <!-- Badge -->
+      <div class="inline-block px-4 py-2 mb-6 rounded-full bg-gray-800/80 text-sm font-medium">
+        ⚡ Velo Fitness
+      </div>
+      <h1 class="text-4xl md:text-6xl font-extrabold mb-6">
+        Unleash Your Potential.
+      </h1>
+      <p class="text-lg md:text-xl text-gray-300 mb-8">
+        Velo is your all-in-one fitness companion. Seamlessly log activities, conquer challenges, 
+        and visualize your progress like never before. It's time to stop guessing and start achieving.
+      </p>
+      <div class="flex justify-center gap-4 mb-12">
+        {% if not user.is_authenticated %}
+    <a href="{% url 'login' %}" class="px-6 py-3 rounded-full bg-blue-600 hover:bg-blue-700 transition shadow-lg">
+          Get Started
+        </a>
         {% else %}
-        <h1 class="text-4xl font-bold text-gray-800 mb-4 ">Welcome to the Fitness Tracker</h1>
-    <p class="text-gray-600 mb-4">Track your workouts, monitor your progress, and achieve your fitness goals.</p>
+        <a href="{% url 'dashboard' %}" class="px-6 py-3 rounded-full bg-blue-600 hover:bg-blue-700 transition shadow-lg">
+          Get Started
+        </a>
         {% endif %}
-        {% if user.is_authenticated %}
-        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
-    <div class="bg-white rounded-xl shadow-lg p-6 flex flex-col items-center text-center border-zinc-800 overflow-hidden relative group hover:shadow-2xl transition-all duration-300 ease-in-out">
-        <h2 class="text-xl font-semibold text-gray-700 mb-2">Calories Burned</h2>
-        <p class="text-5xl font-extrabold text-red-500">{{ total_calories_burned|default:"0" }} <span class="text-2xl font-normal text-gray-500">Kcal</span></p>
-    </div>
-    <div class="bg-white rounded-xl shadow-lg p-6 flex flex-col items-center text-center border-zinc-800 overflow-hidden relative group hover:shadow-2xl transition-all duration-300 ease-in-out">
-        <h2 class="text-xl font-semibold text-gray-700 mb-2">Total Time</h2>
-        <p class="text-5xl font-extrabold text-green-500">{{ total_time|default:"0" }} <span class="text-2xl font-normal text-gray-500">mins</span></p>
-    </div>
-    <div class="bg-white rounded-xl shadow-lg p-6 flex flex-col items-center text-center border-zinc-800 overflow-hidden relative group hover:shadow-2xl transition-all duration-300 ease-in-out">
-        <h2 class="text-xl font-semibold text-gray-700 mb-2">Workouts Done</h2>
-        <p class="text-5xl font-extrabold text-blue-500">{{ total_workouts|default:"0" }}</p>
-    </div>
-    <div class="bg-white rounded-xl shadow-lg p-6 flex flex-col items-center text-center border-zinc-800 overflow-hidden relative group hover:shadow-2xl transition-all duration-300 ease-in-out">
-        <h2 class="text-xl font-semibold text-gray-700 mb-2">Day Streak</h2>
-        <p class="text-5xl font-extrabold text-yellow-500">{{ day_streak|default:"0" }}</p>
-    </div>
-</div>
-
-<section class="bg-white rounded-xl shadow-lg p-8 mb-8">
-    <h2 class="text-2xl font-bold text-gray-800 mb-4">Your Progress</h2>
-    <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+        <a href="{% url 'about' %}" class="px-6 py-3 rounded-full bg-white text-gray-900 hover:bg-gray-200 transition shadow-lg">
+          Learn More
+        </a>
+      </div>
+      <div class="grid grid-cols-2 md:grid-cols-4 gap-8 text-center">
         <div>
-            <h3 class="text-xl font-semibold text-gray-700 mb-2">Weight Progress</h3>
-            <canvas id="weightChart"></canvas>
+          <p class="text-2xl md:text-3xl font-bold">10K+</p>
+          <p class="text-sm text-gray-400">Active Users</p>
         </div>
         <div>
-            <h3 class="text-xl font-semibold text-gray-700 mb-2">Body Metrics</h3>
-            <div class="bg-gray-100 p-4 rounded-lg mb-4">
-                <p class="text-lg font-medium text-gray-700">Current BMI: <span class="font-bold text-blue-600">{{ user.bmi|default:"N/A" }}</span></p>
-            </div>
-            <div class="bg-gray-100 p-4 rounded-lg">
-                <h4 class="text-lg font-semibold text-gray-700">Your Goals</h4>
-                <p class="text-gray-600 mt-1">{{ user.goals|default:"No goals set yet." }}</p>
-            </div>
+          <p class="text-2xl md:text-3xl font-bold">1M+</p>
+          <p class="text-sm text-gray-400">Workouts Logged</p>
         </div>
-    </div>
-</section>
-
-<!-- Leaderboard Section -->
-<section class="bg-white rounded-xl shadow-lg p-8">
-    <h2 class="text-2xl font-bold text-gray-800 mb-4">Challenge Leaderboard</h2>
-    <div id="leaderboard" class="space-y-4">
-        {% for participant in leaderboard %}
-        <div class="flex items-center justify-between p-4 bg-gray-100 rounded-lg">
-            <div class="flex items-center space-x-4">
-                <span class="text-lg font-medium text-gray-700">{{ forloop.counter }}. {{ participant.user.username }}</span>
-                <span class="text-sm text-gray-500">Score: {{ participant.score }}</span>
-            </div>
+        <div>
+          <p class="text-2xl md:text-3xl font-bold">500+</p>
+          <p class="text-sm text-gray-400">Challenges Completed</p>
         </div>
-        {% endfor %}
+        <div>
+          <p class="text-2xl md:text-3xl font-bold">98%</p>
+          <p class="text-sm text-gray-400">User Satisfaction</p>
+        </div>
+      </div>
     </div>
-</section>
-{% endif %}
+  </section>
+  <section class="py-20 px-6 md:px-12 lg:px-20 text-center">
+    <h2 class="text-3xl md:text-4xl font-extrabold mb-4">
+      Everything You Need to
+    </h2>
+    <p class="text-gray-400 max-w-2xl mx-auto mb-12">
+      Our comprehensive platform provides all the tools you need to track, analyze, and achieve your fitness goals.
+    </p>
 
-{% endblock %}
+    <!-- Features Grid -->
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 max-w-6xl mx-auto">
+      <!-- Feature 1 -->
+      <div class="bg-white text-gray-800 p-8 rounded-lg shadow-md hover:shadow-xl transition">
+        <div class="text-2xl mb-4">📈</div>
+        <p class="text-sm">
+          Log workouts, steps, and calories with detailed analytics and progress visualization.
+        </p>
+      </div>
+
+      <!-- Feature 2 -->
+      <div class="bg-white text-gray-800 p-8 rounded-lg shadow-md hover:shadow-xl transition">
+        <div class="text-2xl mb-4">🏆</div>
+        <p class="text-sm">
+          Participate in community challenges and compete on dynamic leaderboards.
+        </p>
+      </div>
+
+      <!-- Feature 3 -->
+      <div class="bg-white text-gray-800 p-8 rounded-lg shadow-md hover:shadow-xl transition">
+        <div class="text-2xl mb-4">📊</div>
+        <p class="text-sm">
+          Visualize your progress with interactive charts and comprehensive insights.
+        </p>
+      </div>
+
+      <!-- Feature 4 -->
+      <div class="bg-white text-gray-800 p-8 rounded-lg shadow-md hover:shadow-xl transition">
+        <div class="text-2xl mb-4">🤝</div>
+        <p class="text-sm">
+          Connect with like-minded fitness enthusiasts and stay motivated together.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA Section -->
+  <section class="py-20 px-6 md:px-12 lg:px-20 bg-gray-800 text-center">
+    <h2 class="text-3xl md:text-4xl font-extrabold mb-4">
+      Ready to Transform Your
+    </h2>
+    <p class="text-gray-400 max-w-2xl mx-auto mb-8">
+      Join thousands of users who are already crushing their goals with Velo. Start your journey today.
+    </p>
+    {% if not user.is_authenticated %}
+    <a href="{% url 'login' %}" class="px-6 py-3 rounded-full bg-blue-600 hover:bg-blue-700 transition shadow-lg">
+          Get Started
+        </a>
+        {% else %}
+        <a href="{% url 'dashboard' %}" class="px-6 py-3 rounded-full bg-blue-600 hover:bg-blue-700 transition shadow-lg">
+          Get Started
+        </a>
+        {% endif %}
+  </section>
+<footer class="py-10 px-6 md:px-12 lg:px-20 bg-gray-900 border-t border-gray-700">
+    <div class="max-w-6xl mx-auto flex flex-col md:flex-row justify-between items-center gap-6 border-b-4 border-zinc-500 ">
+      <!-- Left -->
+      <div>
+        <h3 class="font-bold text-lg">Velo</h3>
+        <p class="text-sm text-gray-400">Fitness Tracker</p>
+      </div>
+
+      <!-- Links -->
+      <div class="flex gap-6 text-sm">
+        <a href="{% url 'home' %}" class="text-gray-400 hover:text-white transition">Home</a>
+        <a href="{% url 'dashboard' %}" class="text-gray-400 hover:text-white transition">Dashboard</a>
+        <a href="{% url 'about' %}" class="text-gray-400 hover:text-white transition">About</a>
+      </div>
+    </div>
+
+    <!-- Bottom -->
+    <div class="text-center mt-6 text-gray-500 text-sm">
+      © 2025 Velo Fitness. Built with passion for your health.
+    </div>
+  </footer>
+</body>
+</html>

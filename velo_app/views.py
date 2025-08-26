@@ -15,6 +15,12 @@ from .serializers import *
 def home(request):
   return render(request, 'home.html')
 
+def about(request):
+  return render(request, 'about.html')
+
+def dashboard(request):
+  return render(request, 'dashboard.html')
+
 def is_admin(user):
     return user.is_authenticated and user.is_staff
 @user_passes_test(is_admin, login_url='login')
