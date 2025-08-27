@@ -30,11 +30,12 @@ def analytics(request):
 def dashboard(request):
   return render(request, 'dashboard.html')
 
-def is_admin(user):
-    return user.is_authenticated and user.is_staff
-@user_passes_test(is_admin, login_url='login')
+# def is_admin(user):
+#     return user.is_staff or user.is_superuser
+# @user_passes_test(is_admin, login_url='login')
+
 def admin_dashboard(request):
-    return render(request, 'admin/dashboard.html')
+    return render(request, 'admin_dashboard.html')
 
 def profile(request):
     return render(request, 'auth/profile.html')
@@ -51,38 +52,41 @@ def register(request):
         form = UserRegistrationForm()
     return render(request, 'auth/register.html', {'form': form})
   
+
 @require_http_methods(["GET", "POST"])
 def login(request):
+    """
+    Handles user login.
+    """
     if request.user.is_authenticated:
         return redirect('dashboard')
     
     if request.method == 'POST':
         form = UserLoginForm(request.POST)
         if form.is_valid():
-            username = request.POST.get('username')
-            password = request.POST.get('password')
-            remember_me = request.POST.get('remember_me', False)
+            username = form.cleaned_data.get('username')
+            password = form.cleaned_data.get('password')
+            remember_me = form.cleaned_data.get('remember_me', False)
             user = authenticate(request, username=username, password=password)
-        
-        if user is not None:
-            auth_login(request, user)
-            messages.success(request, 'Login successful!')
-            if remember_me: 
-                request.session.set_expiry(1209600)  # 2 weeks
-                return redirect('dashboard')
-                
-            elif user.is_staff:
-                auth_login(request, user)
-                messages.success(request, 'Welcome back, Admin {}'.format(user.username))
-                if remember_me: 
-                    request.session.set_expiry(1209600)  # 2 weeks
-                    return redirect('admin_dashboard')
-            return redirect('admin_dashboard')
             
-        else:
-            messages.error(request, 'Invalid username or password.')
+            if user is not None:
+                auth_login(request, user)
+                if not remember_me:
+                    request.session.set_expiry(0)
+                else:
+                    request.session.set_expiry(1209600)  # 2 weeks
+                messages.success(request, 'Login successful!')
+              
+                if user.is_staff:
+                    messages.info(request, f'Welcome back, Admin {user.username}!')
+                    return redirect('admin_dashboard')
+                else:
+                    return redirect('dashboard')
+            else:
+                messages.error(request, 'Invalid username or password.')
     else:
         form = UserLoginForm()
+    
     return render(request, 'auth/login.html', {'form': form})
 
 @require_POST
