@@ -21,7 +21,7 @@ class UserForgotPasswordForm(forms.Form):
 class UserProfileForm(forms.ModelForm):
     class Meta:
         model = UserProfile
-        fields = ['height', 'weight', 'age', 'profile_picture']
+        fields = ['height', 'weight', 'age']
 
 class ChallengeForm(forms.ModelForm):
     class Meta:
@@ -32,3 +32,13 @@ class GoalForm(forms.ModelForm):
     class Meta:
         model = Goal
         fields = ['description', 'target_date']
+        
+class ActivityForm(forms.ModelForm):
+    class Meta:
+        model = ActivityTrackerLog
+        fields = ['activity_type', 'duration', 'date', 'calories_burned']
+
+class WorkoutSessionForm(forms.ModelForm):
+    class Meta:
+        model = WorkoutSession
+        fields = ['workout_type', 'duration', 'calories_burned']

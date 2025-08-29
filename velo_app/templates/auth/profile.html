@@ -5,21 +5,21 @@
 
 <body class="bg-gray-900 text-gray-100 font-sans p-6 overflow-y-auto">
 
-    <div class="max-w-7xl mx-auto space-y-8">
+    <div class="max-w-7xl mx-auto space-y-8 p-6 mb-4 w-full">
         <header class="flex justify-between items-center">
-            <h1 class="text-3xl font-bold ml-4">Profile</h1>
-            <button class="bg-blue-600 text-white m-14 px-4 py-2 rounded-lg font-semibold flex items-center space-x-2 hover:bg-blue-700 transition-colors">
+            <h1 class="text-3xl font-bold">Profile</h1>
+            <button class="bg-blue-600 text-white px-4 py-2 rounded-lg font-semibold flex items-center space-x-2 hover:bg-blue-700 transition-colors">
                 <svg class="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6"></path>
                     </svg>
                 <span>Edit Profile</span>
             </button>
         </header>
-        <p class="text-gray-400 ml-4">Manage your fitness journey settings</p>
+        <p class="text-gray-400">Manage your fitness journey settings</p>
 
         <div class="grid lg:grid-cols-3 gap-8">
-            <div class="lg:col-span-2 space-y-8">
-                <div class="bg-gray-800 rounded-xl p-6 shadow-lg ml-10">
+            <div class="lg:col-span-3 space-y-8">
+                <div class="bg-gray-800 rounded-xl p-6 shadow-lg">
                     <div class="flex items-center space-x-4 mb-6">
                         <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
@@ -76,16 +76,15 @@
                         </div>
                     </div>
                 </div>
-
-                <div class="bg-gray-800 rounded-xl p-6 shadow-lg mr-10">
-                    <div class="flex items-center space-x-4 mb-6">
+                <div class="bg-gray-800 rounded-xl p-6 shadow-lg lg:col-span-2">
+                    <div class="flex items-center space-x-4">
                         <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 10h-2m2 0a2 2 0 11-4 0 2 2 0 014 0z" />
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.315 7.828a2 2 0 00-2.828-2.828l-5.657 5.657a2 2 0 000 2.828l5.657 5.657a2 2 0 002.828-2.828L17.157 12l3.158-3.172z" />
                         </svg>
                         <h2 class="text-xl font-semibold text-white">Fitness Goals</h2>
                     </div>
-                    <p class="text-gray-400 text-sm mb-4">Set your daily and weekly targets</p>
+                    <p class="text-gray-400 text-sm">Set your daily and weekly targets</p>
                     <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
                         <div class="bg-gray-700 rounded-lg p-4 flex items-center space-x-4">
                             <div class="w-10 h-10 bg-gray-900 rounded-full flex items-center justify-center">
@@ -111,42 +110,11 @@
                         </div>
                     </div>
                 </div>
-
-                <div class="bg-gray-800 rounded-xl p-6 shadow-lg ml-10">
-                    <div class="flex items-center space-x-4 mb-6">
-                        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944c-1.396.697-2.65 1.572-3.75 2.556-1.1.984-2.023 2.15-2.76 3.486-.737 1.336-1.127 2.808-1.127 4.295 0 1.488.39 2.96 1.127 4.295.737 1.336 1.66 2.502 2.76 3.486 1.1.984 2.354 1.859 3.75 2.556a11.955 11.955 0 010-4.148z" />
-                        </svg>
-                        <h2 class="text-xl font-semibold text-white">Achievements</h2>
-                    </div>
-                    <p class="text-gray-400 text-sm mb-6">Your fitness milestones and badges</p>
-                    <div class="flex flex-col items-center justify-center text-center space-y-4 py-8">
-                        <svg xmlns="http://www.w3.org/2000/svg" class="h-16 w-16 text-gray-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c1.657 0 3 1.343 3 3s-1.343 3-3 3-3-1.343-3-3 1.343-3 3-3z" />
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 2a10 10 0 00-9.95 9.09A10 10 0 0012 22a10 10 0 009.95-9.09A10 10 0 0012 2z" />
-                        </svg>
-                        <p class="text-gray-500 font-medium">Start your fitness journey to earn achievements!</p>
-                    </div>
-                    <div class="grid grid-cols-3 text-center gap-4 border-t border-gray-700 pt-6 mt-6">
-                        <div>
-                            <p class="text-2xl font-bold text-white">0</p>
-                            <p class="text-gray-400 text-sm">Earned</p>
-                        </div>
-                        <div>
-                            <p class="text-2xl font-bold text-white">7</p>
-                            <p class="text-gray-400 text-sm">Activities</p>
-                        </div>
-                        <div>
-                            <p class="text-2xl font-bold text-white">0</p>
-                            <p class="text-gray-400 text-sm">Challenges</p>
-                        </div>
-                    </div>
-                </div>
             </div>
 
-            <div class="lg:col-span-1 space-y-8 m-10">
+            <div class="lg:col-span-1 space-y-8">
                 <div class="bg-gray-800 rounded-xl p-6 shadow-lg">
-                    <h2 class="text-xl font-semibold text-white mb-2">Your Statistics</h2>
+                    <h2 class="text-xl font-semibold text-white">Your Statistics</h2>
                     <p class="text-gray-400 text-sm mb-6">Your fitness journey in numbers</p>
                     <div class="space-y-4">
                         <div class="flex items-center space-x-4 bg-gray-700 rounded-lg p-4">

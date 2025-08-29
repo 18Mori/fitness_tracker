@@ -7,7 +7,6 @@ class UserProfile(models.Model):
     height = models.DecimalField(max_digits=5, decimal_places=2, null=True, blank=True)
     weight = models.DecimalField(max_digits=5, decimal_places=2, null=True, blank=True)
     age = models.PositiveIntegerField(null=True, blank=True)
-    profile_picture = models.ImageField(upload_to='profile_pics/', blank=True, null=True)
 
     def __str__(self):
         return self.user.username
@@ -19,9 +18,10 @@ class WorkoutSession(models.Model):
     started_at = models.DateTimeField(null=True, blank=True)
     ended_at = models.DateTimeField(null=True, blank=True)
     date = models.DateField()
-    workout_type = models.CharField(max_length=50, choices=[('cardio', 'Cardio'), ('strength', 'Strength Training'), ('flexibility', 'Flexibility'), ('balance', 'Balance Training'), ('pilates', 'Pilates'), ('yoga', 'Yoga'), ('running', 'Running'), ('walking', 'Walking'), ('cycling', 'Cycling'), ('swimming', 'Swimming')], null=True)
+    workout_type = models.CharField(max_length=50, choices=[('cardio', 'Cardio'), ('strength', 'Strength Training'), ('flexibility', 'Flexibility'), ('balance', 'Balance Training'), ('pilates', 'Pilates'), ('yoga', 'Yoga'), ('running', 'Running'), ('walking', 'Walking'), ('cycling', 'Cycling'), ('swimming', 'Swimming'), ('hiking', 'Hiking'), ('gym', 'Gym Workout')], null=True)
     duration = models.DurationField()
     calories_burned = models.PositiveIntegerField()
+    description = models.TextField(null=True, blank=True)
     created_at = models.DateTimeField(auto_now_add=True, null=True)
 
     def __str__(self):
@@ -104,7 +104,7 @@ class MealTracker(models.Model):
 class ActivityTrackerLog(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     date = models.DateField()
-    activity_type = models.CharField(max_length=50, choices=[('running', 'Running'), ('cycling', 'Cycling'), ('swimming', 'Swimming'), ('walking', 'Walking'), ('hiking', 'Hiking'), ('gym', 'Gym Workout')])
+    activity_type = models.CharField(max_length=50, choices=[('Workout', 'Workout Session'), ('steps', 'Steps')], null=True)
     duration = models.DurationField()
     calories_burned = models.PositiveIntegerField()
 
