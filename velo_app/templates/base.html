@@ -9,7 +9,7 @@
         <script src="https://cdn.tailwindcss.com"></script> 
     </head>
     <body class="bg-[#121212] text-white font-sans">
-        <div class="flex">
+        <div class="flex fixed h-full">
         <div class="w-64 bg-[#1e1e1e] flex flex-col justify-between p-6">
             <div>
                 <div class="flex items-center space-x-2 mb-10">
@@ -29,32 +29,32 @@
                                 <span>Home</span>
                             </a>
                         </li>
-                        <li class="mb-4 hover:bg-gray-700 rounded-lg">
-                            <a href="{% url 'dashboard' %}" class="flex items-center space-x-3 text-gray-400 hover:text-white transition-colors duration-200">
+                        <li class="mb-4 hover:bg-gray-700 rounded-lg {% if request.path == '/dashboard/' %}bg-gray-700{% endif %}">
+                            <a href="{% url 'dashboard' %}" class="flex items-center space-x-3 text-gray-400 hover:text-white transition-colors duration-200 {% if request.path == '/dashboard/' %}text-white{% endif %}">
                                 <svg class="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 10a2 2 0 012-2h14a2 2 0 012 2v8a2 2 0 01-2 2H5a2 2 0 01-2-2v-8z"></path>
                                 </svg>
                                 <span>Dashboard</span>
                             </a>
                         </li>
-                        <li class="mb-4 hover:bg-gray-700 rounded-lg">
-                            <a href="{% url 'activities' %}" class="flex items-center space-x-3 text-gray-400 hover:text-white transition-colors duration-200">
+                        <li class="mb-4 hover:bg-gray-700 rounded-lg {% if request.path == '/activities/' %}bg-gray-700{% endif %}">
+                            <a href="{% url 'activities' %}" class="flex items-center space-x-3 text-gray-400 hover:text-white transition-colors duration-200 {% if request.path == '/activities/' %}text-white{% endif %}">
                                 <svg class="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2"></path>
                                 </svg>
                                 <span>Activities</span>
                             </a>
                         </li>
-                        <li class="mb-4 hover:bg-gray-700 rounded-lg">
-                            <a href="{% url 'analytics' %}" class="flex items-center space-x-3 text-gray-400 hover:text-white transition-colors duration-200">
+                        <li class="mb-4 hover:bg-gray-700 rounded-lg {% if request.path == '/analytics/' %}bg-gray-700{% endif %}">
+                            <a href="{% url 'analytics' %}" class="flex items-center space-x-3 text-gray-400 hover:text-white transition-colors duration-200 {% if request.path == '/analytics/' %}text-white{% endif %}">
                                 <svg class="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 8v8m-4-2v2m-4-6v6M4 20h16a2 2 0 002-2V6a2 2 0 00-2-2H4a2 2 0 00-2 2v12a2 2 0 002 2z"></path>
                                 </svg>
                                 <span>Analytics</span>
                             </a>
                         </li>
-                        <li class="mb-4 hover:bg-gray-700 rounded-lg">
-                            <a href="{% url 'challenges' %}" class="flex items-center space-x-3 text-gray-400 hover:text-white transition-colors duration-200">
+                        <li class="mb-4 hover:bg-gray-700 rounded-lg {% if request.path == '/challenges/' %}bg-gray-700{% endif %}">
+                            <a href="{% url 'challenges' %}" class="flex items-center space-x-3 text-gray-400 hover:text-white transition-colors duration-200 {% if request.path == '/challenges/' %}text-white{% endif %}">
                                 <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#9c9c9cff"><path d="M480-390Zm-132-53 55 37 77-39 77 39 53-35-40-79H386l-38 77ZM209-160h541L646-369l-83 55-83-41-83 41-85-56-103 210ZM80-80l234-475q10-20 29.5-32.5T386-600h54v-280h280l-40 80 40 80H520v120h50q23 0 42 12t30 32L880-80H80Z"/></svg>
                                 <span>Challenges</span>
                             </a>
@@ -69,6 +69,7 @@
                         </li>
                     </ul>
                 </nav>
+                
                 <div class="flex items-center space-x-3 p-3 bg-gray-800 rounded-lg">
                 <div class="relative">
                     <a href="{% url 'profile' %}" class="hover:text-gray-400">
@@ -95,9 +96,10 @@
             </div>
             </div>
         </div>
-      {% block content %}{% endblock %}
     </div>
-    {% include 'footer.html' %}
+    <div class="ml-64 p-6 min-h-screen">
+    {% block content %}{% endblock %}
+    </div>
 
     {% if messages %}
     <div id="message-container" class="fixed top-4 right-4 z-50 w-full max-w-sm space-y-3">
