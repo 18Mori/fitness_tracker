@@ -104,9 +104,9 @@ class MealTracker(models.Model):
 class ActivityTrackerLog(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     date = models.DateField()
-    activity_type = models.CharField(max_length=50, choices=[('Workout', 'Workout Session'), ('steps', 'Steps')], null=True)
+    activity_type = models.CharField(max_length=50, choices=[('workout', 'Workout'), ('steps', 'Steps')], null=True)
     duration = models.DurationField()
     calories_burned = models.PositiveIntegerField()
-
+    steps = models.PositiveIntegerField(default=0)
     def __str__(self):
         return f"ActivityTracker({self.user.username}, {self.date}, {self.activity_type})"
