@@ -22,12 +22,25 @@ class UserProfileForm(forms.ModelForm):
     class Meta:
         model = UserProfile
         fields = ['height', 'weight', 'age']
+        widgets = {
+            'height': forms.NumberInput(attrs={'class': 'w-full p-2.5 rounded-md bg-gray-700 text-white border border-gray-600 focus:outline-none focus:ring-2 focus:ring-blue-500'}),
+            'weight': forms.NumberInput(attrs={'class': 'w-full p-2.5 rounded-md bg-gray-700 text-white border border-gray-600 focus:outline-none focus:ring-2 focus:ring-blue-500'}),
+            'age': forms.NumberInput(attrs={'class': 'w-full p-2.5 rounded-md bg-gray-700 text-white border border-gray-600 focus:outline-none focus:ring-2 focus:ring-blue-500'}),
+        }
 
 class ChallengeForm(forms.ModelForm):
     class Meta:
         model = Challenge
         fields = ['title', 'description', 'type', 'target', 'start_date', 'end_date']
-        
+        widgets = {
+            'title': forms.TextInput(attrs={'class': 'w-full p-2.5 rounded-md bg-gray-700 text-white border border-gray-600 focus:outline-none focus:ring-2 focus:ring-blue-500'}),
+            'description': forms.Textarea(attrs={'class': 'w-full p-2.5 rounded-md bg-gray-700 text-white border border-gray-600 focus:outline-none focus:ring-2 focus:ring-blue-500'}),
+            'type': forms.Select(attrs={'class': 'w-full p-2.5 rounded-md bg-gray-700 text-white border border-gray-600 focus:outline-none focus:ring-2 focus:ring-blue-500'}),
+            'target': forms.NumberInput(attrs={'class': 'w-full p-2.5 rounded-md bg-gray-700 text-white border border-gray-600 focus:outline-none focus:ring-2 focus:ring-blue-500'}),
+            'start_date': forms.DateInput(attrs={'class': 'w-full p-2.5 rounded-md bg-gray-700 text-white border border-gray-600 focus:outline-none focus:ring-2 focus:ring-blue-500', 'type': 'date'}),
+            'end_date': forms.DateInput(attrs={'class': 'w-full p-2.5 rounded-md bg-gray-700 text-white border border-gray-600 focus:outline-none focus:ring-2 focus:ring-blue-500', 'type': 'date'}),
+        }
+
 class GoalForm(forms.ModelForm):
     class Meta:
         model = Goal
@@ -37,6 +50,13 @@ class ActivityForm(forms.ModelForm):
     class Meta:
         model = ActivityTrackerLog
         fields = ['activity_type', 'duration', 'date', 'calories_burned']
+        widgets = {
+            'activity_type': forms.Select(attrs={'class': 'w-full p-2.5 rounded-md bg-gray-700 text-white border border-gray-600 focus:outline-none focus:ring-2 focus:ring-blue-500'}),
+            'date': forms.DateInput(attrs={'class': 'w-full p-2.5 rounded-md bg-gray-700 text-white border border-gray-600 focus:outline-none focus:ring-2 focus:ring-blue-500', 'type': 'date'}),
+            'duration': forms.NumberInput(attrs={'class': 'w-full p-2.5 rounded-md bg-gray-700 text-white border border-gray-600 focus:outline-none focus:ring-2 focus:ring-blue-500'}),
+            'steps': forms.NumberInput(attrs={'class': 'w-full p-2.5 rounded-md bg-gray-700 text-white border border-gray-600 focus:outline-none focus:ring-2 focus:ring-blue-500'}),
+            'calories_burned': forms.NumberInput(attrs={'class': 'w-full p-2.5 rounded-md bg-gray-700 text-white border border-gray-600 focus:outline-none focus:ring-2 focus:ring-blue-500'}),
+        }
 
 class WorkoutSessionForm(forms.ModelForm):
     class Meta:
