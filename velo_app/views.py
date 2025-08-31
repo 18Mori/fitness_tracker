@@ -1,4 +1,4 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth import login as auth_login
 from django.contrib.auth import authenticate
 from django.views.decorators.http import require_http_methods
@@ -19,19 +19,96 @@ def about(request):
 
 @login_required
 def activities(request):
-  return render(request, 'activities.html')
+    if request.method == 'POST':
+        form = ActivityForm(request.POST)
+        if form.is_valid():
+            activity = form.save(commit=False)
+            activity.user = request.user
+            activity.save()
+            messages.success(request, 'Activity logged successfully!')
+            return redirect('activities')
+    else:
+        form = ActivityForm()
+    user_activities = ActivityTrackerLog.objects.filter(user=request.user)
+    return render(request, 'activities.html', {'form': form, 'user_activities': user_activities})
+
+def increment_view_count(activity):
+    activity.view_count += 1
+    activity.save()
+
+@login_required
+def activity_detail(request, pk):
+    activity = get_object_or_404(ActivityTrackerLog, pk=pk, user=request.user)
+    if request.method == 'POST':
+        form = ActivityForm(request.POST, instance=activity)
+        if form.is_valid():
+            form.save()
+            messages.success(request, 'Activity updated successfully!')
+            return redirect('activities')
+    else:
+        form = ActivityForm(instance=activity)
+    
+    return render(request, 'activity_detail.html', {'form': form, 'activity': activity})
+
+@login_required
+def activity_delete(request, pk):
+    activity = get_object_or_404(ActivityTrackerLog, pk=pk, user=request.user)
+    if request.method == 'POST':
+        activity.delete()
+        messages.success(request, 'Activity deleted successfully!')
+        return redirect('activities')
+    return redirect('activities')
+
+def activity_edit(request, pk):
+    activity = get_object_or_404(ActivityTrackerLog, pk=pk, user=request.user)
+    if request.method == 'POST':
+        form = ActivityForm(request.POST, instance=activity)
+        if form.is_valid():
+            form.save()
+            messages.success(request, 'Activity updated successfully!')
+            return redirect('activities')
+    else:
+        form = ActivityForm(instance=activity)
+    return render(request, 'activity_detail.html', {'form': form, 'activity': activity})
 
 @login_required
 def challenges(request):
-  return render(request, 'challenges.html')
+    if request.method == 'POST':
+        form = ChallengeForm(request.POST)
+        if form.is_valid():
+            challenge = form.save(commit=False)
+            challenge.user = request.user
+            challenge.save()
+            messages.success(request, 'Challenge created successfully!')
+            return redirect('challenges')
+    else:
+        form = ChallengeForm()
+    user_challenges = Challenge.objects.filter(user=request.user)
+    return render(request, 'challenges.html', {'form': form, 'user_challenges': user_challenges})
+
+@login_required
+def challenge_detail(request, pk):
+    challenge = get_object_or_404(Challenge, pk=pk, user=request.user)
+    if request.method == 'POST':
+        form = ChallengeForm(request.POST, instance=challenge)
+        if form.is_valid():
+            form.save()
+            messages.success(request, 'Challenge updated successfully!')
+            return redirect('challenges')
+    else:
+        form = ChallengeForm(instance=challenge)
+
+    return render(request, 'challenge_detail.html', {'form': form, 'challenge': challenge})
 
 @login_required
 def analytics(request):
-  return render(request, 'analytics.html')
+    user_activities = ActivityTrackerLog.objects.filter(user=request.user)
+    return render(request, 'analytics.html', {'user_activities': user_activities})
 
 @login_required
 def dashboard(request):
-  return render(request, 'dashboard.html')
+    user_activities = ActivityTrackerLog.objects.filter(user=request.user)
+    return render(request, 'dashboard.html', {'user_activities': user_activities})
 
 def is_admin(user):
     return user.is_staff or user.is_superuser
@@ -42,7 +119,20 @@ def admin_dashboard(request):
 
 @login_required
 def profile(request):
-    return render(request, 'auth/profile.html')
+    if request.method == 'POST':
+        form = UserProfileForm(request.POST, instance=request.user)
+        if form.is_valid():
+            form.save()
+            messages.success(request, 'Profile updated successfully!')
+            return redirect('profile')
+    else:
+        form = UserProfileForm(instance=request.user)
+    return render(request, 'profile.html', {'form': form})
+
+@login_required
+def profile_detail(request, pk):
+    user_profile = get_object_or_404(User, pk=pk)
+    return render(request, 'profile_detail.html', {'user_profile': user_profile})
 
 def register(request):
     if request.method == 'POST':
