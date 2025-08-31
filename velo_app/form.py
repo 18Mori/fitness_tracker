@@ -14,18 +14,16 @@ class UserLoginForm(forms.Form):
     password = forms.CharField(widget=forms.PasswordInput, required=True)
     remember_me = forms.BooleanField(required=False, initial=False)
 
-class UserForgotPasswordForm(forms.Form):
-    email = forms.EmailField(required=True)
-
-     
 class UserProfileForm(forms.ModelForm):
     class Meta:
         model = UserProfile
-        fields = ['height', 'weight', 'age']
+        fields = ['height', 'current_weight', 'target_weight', 'age', 'fitness_level']
         widgets = {
             'height': forms.NumberInput(attrs={'class': 'w-full p-2.5 rounded-md bg-gray-700 text-white border border-gray-600 focus:outline-none focus:ring-2 focus:ring-blue-500'}),
-            'weight': forms.NumberInput(attrs={'class': 'w-full p-2.5 rounded-md bg-gray-700 text-white border border-gray-600 focus:outline-none focus:ring-2 focus:ring-blue-500'}),
+            'current_weight': forms.NumberInput(attrs={'class': 'w-full p-2.5 rounded-md bg-gray-700 text-white border border-gray-600 focus:outline-none focus:ring-2 focus:ring-blue-500'}),
+            'target_weight': forms.NumberInput(attrs={'class': 'w-full p-2.5 rounded-md bg-gray-700 text-white border border-gray-600 focus:outline-none focus:ring-2 focus:ring-blue-500'}),
             'age': forms.NumberInput(attrs={'class': 'w-full p-2.5 rounded-md bg-gray-700 text-white border border-gray-600 focus:outline-none focus:ring-2 focus:ring-blue-500'}),
+            'fitness_level': forms.Select(attrs={'class': 'w-full p-2.5 rounded-md bg-gray-700 text-white border border-gray-600 focus:outline-none focus:ring-2 focus:ring-blue-500'}),
         }
 
 class ChallengeForm(forms.ModelForm):
@@ -41,11 +39,6 @@ class ChallengeForm(forms.ModelForm):
             'end_date': forms.DateInput(attrs={'class': 'w-full p-2.5 rounded-md bg-gray-700 text-white border border-gray-600 focus:outline-none focus:ring-2 focus:ring-blue-500', 'type': 'date'}),
         }
 
-class GoalForm(forms.ModelForm):
-    class Meta:
-        model = Goal
-        fields = ['description', 'target_date']
-        
 class ActivityForm(forms.ModelForm):
     class Meta:
         model = ActivityTrackerLog
@@ -57,8 +50,3 @@ class ActivityForm(forms.ModelForm):
             'steps': forms.NumberInput(attrs={'class': 'w-full p-2.5 rounded-md bg-gray-700 text-white border border-gray-600 focus:outline-none focus:ring-2 focus:ring-blue-500'}),
             'calories_burned': forms.NumberInput(attrs={'class': 'w-full p-2.5 rounded-md bg-gray-700 text-white border border-gray-600 focus:outline-none focus:ring-2 focus:ring-blue-500'}),
         }
-
-class WorkoutSessionForm(forms.ModelForm):
-    class Meta:
-        model = WorkoutSession
-        fields = ['workout_type', 'duration', 'calories_burned']

@@ -2,6 +2,7 @@ from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth import login as auth_login
 from django.contrib.auth import authenticate
 from django.views.decorators.http import require_http_methods
+from django.contrib.auth.models import User
 from django.contrib import messages
 from django.contrib.auth import logout
 from .form import *
@@ -101,11 +102,6 @@ def challenge_detail(request, pk):
     return render(request, 'challenge_detail.html', {'form': form, 'challenge': challenge})
 
 @login_required
-def analytics(request):
-    user_activities = ActivityTrackerLog.objects.filter(user=request.user)
-    return render(request, 'analytics.html', {'user_activities': user_activities})
-
-@login_required
 def dashboard(request):
     user_activities = ActivityTrackerLog.objects.filter(user=request.user)
     return render(request, 'dashboard.html', {'user_activities': user_activities})
@@ -119,20 +115,33 @@ def admin_dashboard(request):
 
 @login_required
 def profile(request):
+    user_profile, created = UserProfile.objects.get_or_create(user=request.user)
     if request.method == 'POST':
-        form = UserProfileForm(request.POST, instance=request.user)
+        form = UserProfileForm(request.POST, instance=user_profile)
         if form.is_valid():
-            form.save()
+            update = form.save(commit=False)
+            update.user = request.user
+            update.save()
             messages.success(request, 'Profile updated successfully!')
             return redirect('profile')
     else:
-        form = UserProfileForm(instance=request.user)
-    return render(request, 'profile.html', {'form': form})
+        form = UserProfileForm(instance=user_profile)
+    user_profile = UserProfile.objects.filter(user=request.user).first()
+    return render(request, 'auth/profile.html', {'form': form, 'user_profile': user_profile})
 
-@login_required
 def profile_detail(request, pk):
-    user_profile = get_object_or_404(User, pk=pk)
-    return render(request, 'profile_detail.html', {'user_profile': user_profile})
+    user_profile = get_object_or_404(UserProfile, pk=pk)
+    user_profile, created = UserProfile.objects.get(user=request.user)
+    if request.method == 'POST':
+        form = UserProfileForm(request.POST, instance=user_profile)
+        if form.is_valid():
+            form.save()
+            messages.success(request, 'Profile updated successfully!')
+            return redirect('profile_detail', pk=user_profile.pk)
+    else:
+        form = UserProfileForm(instance=user_profile)
+
+    return render(request, 'auth/profile_detail.html', {'form': form, 'user_profile': user_profile})
 
 def register(request):
     if request.method == 'POST':
@@ -187,35 +196,8 @@ def logout_user(request):
   messages.success(request, 'Logout was successful!')
   return redirect('login')
 
-
-class WorkoutList(generics.ListCreateAPIView):
-    queryset = WorkoutSession.objects.all()
-    serializer_class = WorkoutSessionSerializer
-    permission_classes = [IsAuthenticated]
-
-    def perform_create(self, serializer):
-        serializer.save(user=self.request.user)
-
-    def get_queryset(self):
-        return WorkoutSession.objects.filter(user=self.request.user)
-
-class WorkoutDetail(generics.RetrieveUpdateDestroyAPIView):
-    queryset = WorkoutSession.objects.all()
-    serializer_class = WorkoutSessionSerializer
-    permission_classes = [IsAuthenticated]
-    
-    def get_queryset(self):
-        return WorkoutSession.objects.filter(user=self.request.user)
-      
-def workout_create(request):
-    if request.method == 'POST':
-        form = WorkoutSessionForm(request.POST)
-        if form.is_valid():
-            workout = form.save(commit=False)
-            workout.user = request.user
-            workout.save()
-            messages.success(request, 'Workout created successfully!')
-            return redirect('workout_detail', pk=workout.pk)
-    else:
-        form = WorkoutSessionForm()
-    return render(request, 'workouts/workout_form.html', {'form': form})
+def account_logout(request, pk):
+    user = get_object_or_404(User, pk=pk)
+    logout(request)
+    messages.success(request, 'Logout was successful!')
+    return redirect('login')

@@ -6,7 +6,53 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="icon" type="image/x-icon" href="{% static 'flash.png' %}">
     <title>{% block title %}{% endblock title %}</title>
-        <script src="https://cdn.tailwindcss.com"></script> 
+        <script src="https://cdn.tailwindcss.com"></script>
+        <script>
+    function toggleModal(modalId, isVisible) {
+            const modal = document.getElementById(modalId);
+            if (modal) {
+                if (isVisible) {
+                    modal.classList.remove('hidden');
+                    modal.classList.add('flex');
+                } else {
+                    modal.classList.remove('flex');
+                    modal.classList.add('hidden');
+                }
+            }
+        }
+        
+        function confirmLogout(logoutUrl) {
+            document.getElementById('logout-form').action = logoutUrl;
+            toggleModal('logout-modal', true);
+        }
+
+    function confirmDelete(deleteUrl) {
+        document.getElementById('delete-form').action = deleteUrl;
+        toggleModal('delete-modal', true);
+    }
+    
+    function openEditModal(button) {
+        const card = button.closest('[data-activity-pk]');
+        const pk = card.dataset.activityPk;
+        const type = card.dataset.activityType;
+        const date = card.dataset.activityDate;
+        const duration = card.dataset.activityDuration;
+        const steps = card.dataset.activitySteps;
+        const calories = card.dataset.activityCalories;
+
+        document.getElementById('edit_activity_type').value = type;
+        document.getElementById('edit_date').value = date;
+        document.getElementById('edit_duration').value = duration;
+        document.getElementById('edit_steps').value = steps;
+        document.getElementById('edit_calories_burned').value = calories;
+
+        const form = document.getElementById('edit-activity-form');
+        form.action = `{% url 'activity_detail' pk=0 %}`.replace('0', pk);
+
+        toggleModal('edit-modal', true);
+    }
+</script>
+
     </head>
     <body class="bg-[#121212] text-white font-sans">
         <div class="flex fixed h-full">
@@ -43,14 +89,6 @@
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2"></path>
                                 </svg>
                                 <span>Activities</span>
-                            </a>
-                        </li>
-                        <li class="mb-4 hover:bg-gray-700 rounded-lg {% if request.path == '/analytics/' %}bg-gray-700{% endif %}">
-                            <a href="{% url 'analytics' %}" class="flex items-center space-x-3 text-gray-400 hover:text-white transition-colors duration-200 {% if request.path == '/analytics/' %}text-white{% endif %}">
-                                <svg class="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 8v8m-4-2v2m-4-6v6M4 20h16a2 2 0 002-2V6a2 2 0 00-2-2H4a2 2 0 00-2 2v12a2 2 0 002 2z"></path>
-                                </svg>
-                                <span>Analytics</span>
                             </a>
                         </li>
                         <li class="mb-4 hover:bg-gray-700 rounded-lg {% if request.path == '/challenges/' %}bg-gray-700{% endif %}">
