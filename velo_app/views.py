@@ -87,6 +87,10 @@ def challenges(request):
     user_challenges = Challenge.objects.filter(user=request.user)
     return render(request, 'challenges.html', {'form': form, 'user_challenges': user_challenges})
 
+def increment_view_count(challenge):
+    challenge.view_count += 1
+    challenge.save()
+
 @login_required
 def challenge_detail(request, pk):
     challenge = get_object_or_404(Challenge, pk=pk, user=request.user)
