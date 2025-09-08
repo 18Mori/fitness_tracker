@@ -68,7 +68,7 @@ def activity_edit(request, pk):
             return redirect('activities')
     else:
         form = ActivityForm(instance=activity)
-    return render(request, 'activity.html', {'form': form, 'activity': activity})
+    return render(request, 'activity_detail.html', {'form': form, 'activity': activity})
 
 @login_required
 def challenges(request):
