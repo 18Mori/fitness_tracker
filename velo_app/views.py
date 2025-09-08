@@ -7,8 +7,6 @@ from django.contrib import messages
 from django.contrib.auth import logout
 from .form import *
 from django.contrib.auth.decorators import login_required, user_passes_test
-from rest_framework import generics
-from rest_framework.permissions import IsAuthenticated
 from .models import *
 from .serializers import *
 
@@ -70,7 +68,7 @@ def activity_edit(request, pk):
             return redirect('activities')
     else:
         form = ActivityForm(instance=activity)
-    return render(request, 'activity_detail.html', {'form': form, 'activity': activity})
+    return render(request, 'activity.html', {'form': form, 'activity': activity})
 
 @login_required
 def challenges(request):
